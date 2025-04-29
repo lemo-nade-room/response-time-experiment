@@ -5,15 +5,15 @@
 
 	let { data }: PageProps = $props();
 
-	let 全状態 = $state(data.cellData)
-	const server = useMockServer(data.cellData)
+	let 全状態 = $state(data.cellData);
+	const server = useMockServer(data.cellData);
 
 	async function handleClick(id: number) {
-		console.log('💚 クリックされた', id)
-		await server.incrementCell(id)
-		console.log('💚 サーバーコマンド', id)
-		全状態 = await server.loadAllCell()
-		console.log('💚 全読み込み', id)
+		console.log('💚 クリックされた', id);
+		await server.incrementCell(id);
+		console.log('💚 サーバーコマンド', id);
+		全状態 = await server.loadAllCell();
+		console.log('💚 全読み込み', id);
 	}
 </script>
 
