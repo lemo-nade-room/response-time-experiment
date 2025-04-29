@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { tick } from 'svelte';
+
 	let { count } = $props<{
 		count: number;
 	}>();
@@ -10,13 +12,14 @@
 	$effect(() => {
 		lastEffectedAt = new Date().getTime();
 		effecting = true;
-		console.log('❤️')
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const _ = count + 1
 		setTimeout(() => {
 			const current = new Date().getTime();
-			if (lastEffectedAt + 500 < current) {
+			if (lastEffectedAt + 80 < current) {
 				effecting = false;
 			}
-		}, 500);
+		}, 100);
 	});
 </script>
 
@@ -60,7 +63,8 @@
         }
 
         &.effecting {
-            animation: blink 100ms step-start infinite;
+            background: gold !important;
+            animation: blink 150ms step-start 1;
         }
 
         @keyframes blink {
