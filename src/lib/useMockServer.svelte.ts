@@ -23,6 +23,12 @@ export function useMockServer(cellData: readonly CellData[]) {
 		return JSON.parse(JSON.stringify([...idToCell.values()].sort((a, b) => a.id - b.id)));
 	}
 
+	async function loadCell(id: number): Promise<CellData> {
+		await new Promise((resolve) => setTimeout(resolve, timeout));
+
+		return JSON.parse(JSON.stringify(idToCell.get(id)));
+	}
+
 	function updateTimeout(newTimeout: number) {
 		timeout = newTimeout;
 	}
@@ -30,6 +36,7 @@ export function useMockServer(cellData: readonly CellData[]) {
 	return {
 		incrementCell,
 		loadAllCell,
+		loadCell,
 		updateTimeout,
 		get timeout() {
 			return timeout;
