@@ -1,7 +1,7 @@
 import type { CellData } from '$lib/Table.svelte';
 
 export function useMockServer(cellData: readonly CellData[]) {
-	let timeout = $state(1000);
+	let timeout = $state(100);
 
 	let idToCell = $state<ReadonlyMap<number, CellData>>(
 		new Map(cellData.map((cell) => [cell.id, cell]))
@@ -30,6 +30,7 @@ export function useMockServer(cellData: readonly CellData[]) {
 	}
 
 	function updateTimeout(newTimeout: number) {
+		if (newTimeout < 0) return
 		timeout = newTimeout;
 	}
 
