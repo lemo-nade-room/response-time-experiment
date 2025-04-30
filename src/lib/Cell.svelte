@@ -1,12 +1,14 @@
 <script lang="ts">
-	let { count } = $props<{
+	let { count, useEffect } = $props<{
 		count: number;
+		useEffect: boolean
 	}>();
 
 	let effecting = $state(false);
 	let lastEffectedAt = $state(new Date().getTime());
 
 	$effect(() => {
+		if (!useEffect) return
 		lastEffectedAt = new Date().getTime();
 		effecting = true;
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars

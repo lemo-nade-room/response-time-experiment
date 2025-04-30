@@ -9,9 +9,10 @@
 	import Cell from '$lib/Cell.svelte';
 	import { ripple } from "svelte-ripple-action";
 
-	let { cells, onclickCell, useRipple = false } = $props<{
+	let { cells, onclickCell, useRipple = false, useEffect } = $props<{
 		cells: readonly CellData[];
 		useRipple?: boolean;
+		useEffect: boolean;
 		onclickCell: (id: number) => unknown;
 	}>();
 </script>
@@ -20,11 +21,11 @@
 	{#each cells as cell (cell.id)}
 		{#if useRipple}
 			<button use:ripple onclick={() => onclickCell(cell.id)}>
-				<Cell count={cell.count} />
+				<Cell count={cell.count} {useEffect} />
 			</button>
 		{:else}
 			<button onclick={() => onclickCell(cell.id)}>
-				<Cell count={cell.count} />
+				<Cell count={cell.count} {useEffect} />
 			</button>
 		{/if}
 	{/each}

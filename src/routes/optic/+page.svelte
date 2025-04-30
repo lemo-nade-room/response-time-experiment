@@ -9,6 +9,11 @@
 	const server = useMockServer(data.cellData);
 	const optimistic = useOpticState(data.cellData, server);
 
+	let useEffect = $state(true)
+	function toggleUseEffect() {
+		useEffect = !useEffect;
+	}
+
 	async function handleClick(id: number) {
 		console.log('💚 クリックされた', id);
 		await optimistic.incrementCell(id)
@@ -22,4 +27,11 @@
 <button onclick={() => server.updateTimeout(server.timeout + 100)}>+100ms</button>
 <button onclick={() => server.updateTimeout(server.timeout - 100)}>-100ms</button>
 
-<Table cells={optimistic.cells} onclickCell={handleClick}></Table>
+<label><input checked={useEffect} onchange={toggleUseEffect} type="radio" name="useEffect" value="true" /> 再レンダリング表示</label>
+<label><input checked={!useEffect} onchange={toggleUseEffect} type="radio" name="useEffect" value="false" /> 再レンダリング非表示</label>
+
+<Table cells={optimistic.cells} onclickCell={handleClick} {useEffect}></Table>
+
+<a href="/">全ロード</a>
+<a href="/optic">楽観的UI</a>
+<a href="/ripple">アニメーション付き</a>
